@@ -49,5 +49,26 @@
   const integral = "account_id: integral";
   console.log(mad);
   console.log(integral);
+  console.clear();
+}
+{
+  let middleware = function(sign) {
+    switch (sign.kind) {
+      case "sign_up":
+        delete sign.password;
+        delete sign.confirmPassword;
+        return sign;
+      case "sign_in":
+        delete sign.password;
+        return sign;
+      default:
+        break;
+    }
+  };
+  var middleware2 = middleware;
+  const signUp = middleware({ kind: "sign_up", password: "123", confirmPassword: "123" });
+  const signIn = middleware({ kind: "sign_in", password: "123" });
+  console.log("sign_up: ", signUp);
+  console.log("sign_in: ", signIn);
 }
 //# sourceMappingURL=index.js.map

@@ -67,4 +67,39 @@
   const integral: Result = 'account_id: integral'
   console.log(mad)
   console.log(integral)
+  console.clear()
+}
+{
+  type SignUpType = {
+    readonly kind: 'sign_up'
+    password?: string
+    confirmPassword?: string
+  }
+
+  type SignInType = {
+    readonly kind: 'sign_in'
+    password?: string
+  }
+
+  type Middleware = SignInType | SignUpType
+
+  function middleware(sign: Middleware): SignUpType | SignInType | void {
+    switch (sign.kind) {
+      case 'sign_up':
+        delete sign.password
+        delete sign.confirmPassword
+        return sign
+      case 'sign_in':
+        delete sign.password
+        return sign
+      default:
+        break
+    }
+  }
+
+  const signUp = middleware({ kind: 'sign_up', password: '123', confirmPassword: '123' })
+  const signIn = middleware({ kind: 'sign_in', password: '123' })
+  console.log('sign_up: ', signUp)
+  console.log('sign_in: ', signIn)
+  console.clear()
 }
