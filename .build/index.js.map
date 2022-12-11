@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "sources": [],
-  "sourcesContent": [],
-  "mappings": "",
+  "sources": ["../index.ts"],
+  "sourcesContent": ["type Candidates = 'mad1' | 'mad2' | 'mad3'\ntype Attributes = {\n  name: string\n  age: number\n  location: string\n}\ntype Members = Record<Candidates, Attributes>\n\nconst members: Members = {\n  mad1: {\n    name: 'mad1',\n    age: 1,\n    location: 'x'\n  },\n  mad2: {\n    name: 'mad2',\n    age: 2,\n    location: 'y'\n  },\n  mad3: {\n    name: 'mad3',\n    age: 3,\n    location: 'z'\n  }\n}\n\nconst getValues = <Members, K extends keyof Members>(obj: Members, key: K): Members[K] => obj[key] \n\nconsole.log(getValues(members, 'mad2'))"],
+  "mappings": "AAQA,MAAM,UAAmB;AAAA,EACvB,MAAM;AAAA,IACJ,MAAM;AAAA,IACN,KAAK;AAAA,IACL,UAAU;AAAA;AAAA,EAEZ,MAAM;AAAA,IACJ,MAAM;AAAA,IACN,KAAK;AAAA,IACL,UAAU;AAAA;AAAA,EAEZ,MAAM;AAAA,IACJ,MAAM;AAAA,IACN,KAAK;AAAA,IACL,UAAU;AAAA;AAAA;AAId,MAAM,YAAY,CAAmC,KAAc,QAAuB,IAAI;AAE9F,QAAQ,IAAI,UAAU,SAAS;",
   "names": []
 }
