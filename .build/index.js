@@ -37,5 +37,17 @@
   const output = test({ name: "mad", age: "1" });
   const result = output;
   console.log(result);
+  console.clear();
+}
+{
+  const user = { name: "mad", age: 1 };
+  console.log(user);
+  console.clear();
+}
+{
+  const mad = "account_id: mad";
+  const integral = "account_id: integral";
+  console.log(mad);
+  console.log(integral);
 }
 //# sourceMappingURL=index.js.map

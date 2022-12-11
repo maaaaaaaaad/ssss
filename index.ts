@@ -51,4 +51,20 @@
   type Result = ReturnType<typeof test>
   const result: Result = output
   console.log(result)
+  console.clear()
+}
+{
+  type X<Type> = { readonly [Property in keyof Type]: Type[Property] }
+  type Y = { readonly name: string, readonly age: number }
+  const user: X<Y> = { name: 'mad', age: 1 }
+  console.log(user)
+  console.clear()
+}
+{
+  type Members = 'mad' | 'integral'
+  type Result = `account_id: ${Members}`
+  const mad: Result = 'account_id: mad'
+  const integral: Result = 'account_id: integral'
+  console.log(mad)
+  console.log(integral)
 }
