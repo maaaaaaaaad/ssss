@@ -26,3 +26,15 @@
   console.log(result)
   console.clear()
 }
+{
+  interface Props<T, K> {
+    name: T,
+    age: K
+  }
+  function test<G = string, H = number>({ name, age }: Props<G, H>): Props<G, H> {
+    return { name, age }
+  }
+  const result = test({ name: 'okok', age: '1' })
+  console.log(result)
+  console.clear()
+}

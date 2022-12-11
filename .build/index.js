@@ -18,5 +18,15 @@
   var test2 = test;
   const result = test({ name: "mad", age: 1 });
   console.log(result);
+  console.clear();
+}
+{
+  let test = function({ name, age }) {
+    return { name, age };
+  };
+  var test2 = test;
+  const result = test({ name: "okok", age: "1" });
+  console.log(result);
+  console.clear();
 }
 //# sourceMappingURL=index.js.map
