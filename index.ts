@@ -38,3 +38,17 @@
   console.log(result)
   console.clear()
 }
+{
+  type Props<A, B> = {
+    name: A,
+    age: B
+  }
+  type InnerType<C = string, D = string> = Props<C, D>
+  function test({ name, age }: InnerType): InnerType {
+    return { name, age }
+  }
+  const output = test({ name: 'mad', age: '1' })
+  type Result = ReturnType<typeof test>
+  const result: Result = output
+  console.log(result)
+}

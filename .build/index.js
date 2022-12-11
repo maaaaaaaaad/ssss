@@ -29,4 +29,13 @@
   console.log(result);
   console.clear();
 }
+{
+  let test = function({ name, age }) {
+    return { name, age };
+  };
+  var test2 = test;
+  const output = test({ name: "mad", age: "1" });
+  const result = output;
+  console.log(result);
+}
 //# sourceMappingURL=index.js.map
