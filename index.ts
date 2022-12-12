@@ -127,12 +127,15 @@
   interface NicknameInterface {
     readonly nickname: string
   }
+  interface MadInterface<T> {
+    readonly result: ({ nickname }: NicknameInterface) => T
+  }
   class Person {
     protected accountId({ accountId }: PersonInterface): PersonInterface {
       return { accountId }
     }
   }
-  class Mad extends Person {
+  class Mad extends Person implements MadInterface<{ nickname: string, accountId: string }> {
     public result({ nickname }: NicknameInterface) {
       return { ...this.accountId({ accountId: 'mad' }), nickname }
     }
