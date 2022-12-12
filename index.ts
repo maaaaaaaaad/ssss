@@ -118,4 +118,27 @@
   const mad = new Mad()
   const output = mad.output()
   console.log(output)
+  console.clear()
+}
+{
+  interface PersonInterface {
+    readonly accountId: string
+  }
+  interface NicknameInterface {
+    readonly nickname: string
+  }
+  class Person {
+    protected accountId({ accountId }: PersonInterface): PersonInterface {
+      return { accountId }
+    }
+  }
+  class Mad extends Person {
+    public result({ nickname }: NicknameInterface) {
+      return { ...this.accountId({ accountId: 'mad' }), nickname }
+    }
+  }
+  const mad = new Mad()
+  const result = mad.result({ nickname: 'ninini' })
+  console.log(result)
+  console.clear()
 }
