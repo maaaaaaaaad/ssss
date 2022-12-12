@@ -103,3 +103,19 @@
   console.log('sign_in: ', signIn)
   console.clear()
 }
+{
+  class Person {
+    protected readonly name = 'mad'
+    protected test() {
+      return 'mad'
+    }
+  }
+  class Mad extends Person {
+    public output() {
+      return this.name + 'hello!'
+    }
+  }
+  const mad = new Mad()
+  const output = mad.output()
+  console.log(output)
+}
