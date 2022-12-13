@@ -145,3 +145,11 @@
   console.log(result)
   console.clear()
 }
+{
+  function gogo<T, L>(arr: T[], func: (args: T) => L): L[] {
+    return arr.map(func)
+  }
+  const result = gogo(["1", "2", "3", "4"], (i) => parseInt(i))
+  console.log(result)
+  console.clear()
+}

@@ -122,5 +122,14 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   const mad = new Mad();
   const result = mad.result({ nickname: "ninini" });
   console.log(result);
+  console.clear();
+}
+{
+  let gogo = function(arr, func) {
+    return arr.map(func);
+  };
+  var gogo2 = gogo;
+  const result = gogo(["1", "2", "3", "4"], (i) => parseInt(i));
+  console.log(result);
 }
 //# sourceMappingURL=index.js.map
