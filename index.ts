@@ -158,14 +158,14 @@
     name: string
     age: number
   }
-  function updateUserData(insert: Attribute, update: Partial<Attribute>): Attribute {
+  function updateUserData(insert: Required<Attribute>, update: Partial<Attribute>): Attribute {
     return { ...insert, ...update }
   }
-  const user: Attribute = {
+  const user: Required<Attribute> = {
     name: 'mad',
     age: 1
   }
-  const updateProfile = updateUserData(user, { age: 2 })
+  const updateProfile = updateUserData(user, { age: 3 })
   console.log(updateProfile)
   console.clear()
 }

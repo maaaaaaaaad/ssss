@@ -142,7 +142,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     name: "mad",
     age: 1
   };
-  const updateProfile = updateUserData(user, { age: 2 });
+  const updateProfile = updateUserData(user, { age: 3 });
   console.log(updateProfile);
   console.clear();
 }
