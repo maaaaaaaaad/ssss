@@ -131,5 +131,19 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   var gogo2 = gogo;
   const result = gogo(["1", "2", "3", "4"], (i) => parseInt(i));
   console.log(result);
+  console.clear();
+}
+{
+  let updateUserData = function(insert, update) {
+    return __spreadValues(__spreadValues({}, insert), update);
+  };
+  var updateUserData2 = updateUserData;
+  const user = {
+    name: "mad",
+    age: 1
+  };
+  const updateProfile = updateUserData(user, { age: 2 });
+  console.log(updateProfile);
+  console.clear();
 }
 //# sourceMappingURL=index.js.map

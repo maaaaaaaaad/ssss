@@ -153,3 +153,19 @@
   console.log(result)
   console.clear()
 }
+{
+  type Attribute = {
+    name: string
+    age: number
+  }
+  function updateUserData(insert: Attribute, update: Partial<Attribute>): Attribute {
+    return { ...insert, ...update }
+  }
+  const user: Attribute = {
+    name: 'mad',
+    age: 1
+  }
+  const updateProfile = updateUserData(user, { age: 2 })
+  console.log(updateProfile)
+  console.clear()
+}
