@@ -169,3 +169,19 @@
   console.log(updateProfile)
   console.clear()
 }
+{
+  class Animal {
+    constructor(public name: string) { }
+  }
+  class Lion extends Animal {
+    constructor(public readonly name: string) {
+      super(name)
+    }
+    public greeting() {
+      return this.name
+    }
+  }
+  const lion = new Lion('lion')
+  console.log(lion.greeting())
+  console.clear()
+}

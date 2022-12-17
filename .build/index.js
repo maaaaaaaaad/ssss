@@ -146,4 +146,22 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   console.log(updateProfile);
   console.clear();
 }
+{
+  class Animal {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+  class Lion extends Animal {
+    constructor(name) {
+      super(name);
+      this.name = name;
+    }
+    greeting() {
+      return this.name;
+    }
+  }
+  const lion = new Lion("lion");
+  console.log(lion.greeting());
+}
 //# sourceMappingURL=index.js.map
