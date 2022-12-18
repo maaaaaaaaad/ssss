@@ -163,5 +163,27 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   }
   const lion = new Lion("lion");
   console.log(lion.greeting());
+  console.clear();
+}
+{
+  class Thing {
+    _size = 0;
+    get size() {
+      return this._size;
+    }
+    set size(value) {
+      let num = Number(value);
+      if (!Number.isFinite(num)) {
+        this._size = 0;
+        throw new Error("value has no type number");
+      }
+      this._size = num;
+    }
+  }
+  const thing = new Thing();
+  thing.size = "10";
+  const getter = thing.size;
+  console.log("getter: ", getter);
+  console.clear();
 }
 //# sourceMappingURL=index.js.map
