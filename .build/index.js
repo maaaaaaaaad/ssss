@@ -186,4 +186,20 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   console.log("getter: ", getter);
   console.clear();
 }
+{
+  let transform = function(arr, func) {
+    return arr.map(func);
+  };
+  var transform2 = transform;
+  const elements = [1, "2", "3", 4, "5"];
+  const result = transform(elements, (el) => {
+    if (typeof el === "string") {
+      console.log(el);
+      Number(el);
+      console.log(typeof el);
+    }
+    return el;
+  });
+  console.log(result);
+}
 //# sourceMappingURL=index.js.map
