@@ -214,21 +214,21 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       super(name);
       this.message = message;
     }
-    get user() {
-      return this.name;
-    }
-    get field() {
-      return this.message;
-    }
-    set user(name) {
+    set setName(name) {
       this.name = name;
     }
-    greeting() {
+    set setMessage(message) {
+      this.message = message;
+    }
+    get greeting() {
       return `name: ${this.name}, message: ${this.message}`;
     }
   }
   const mad = new Mad("mad", "hello world");
-  mad.user = "integral";
-  console.log(mad.greeting());
+  console.log(mad.greeting);
+  mad.setName = "integral";
+  mad.setMessage = "welcome to the jungle";
+  console.log(mad.greeting);
+  console.clear();
 }
 //# sourceMappingURL=index.js.map

@@ -230,27 +230,26 @@
     constructor(protected name: string) { }
   }
   class Mad extends Person {
-    constructor(name: string, private readonly message: string) {
+    constructor(name: string, private message: string) {
       super(name)
     }
 
-    get user(): string {
-      return this.name
-    }
-
-    get field(): string {
-      return this.message
-    }
-
-    set user(name: string) {
+    set setName(name: string) {
       this.name = name
     }
 
-    public greeting() {
+    set setMessage(message: string) {
+      this.message = message
+    }
+
+    get greeting(): string {
       return `name: ${this.name}, message: ${this.message}`
     }
   }
   const mad = new Mad('mad', 'hello world')
-  mad.user = 'integral'
-  console.log(mad.greeting())
+  console.log(mad.greeting)
+  mad.setName = 'integral'
+  mad.setMessage = 'welcome to the jungle'
+  console.log(mad.greeting)
+  console.clear()
 }
