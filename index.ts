@@ -225,3 +225,18 @@
   console.log(result)
   console.clear()
 }
+{
+  class Person {
+    constructor(protected readonly name: string) { }
+  }
+  class Mad extends Person {
+    constructor(name: string, private readonly message: string) {
+      super(name)
+    }
+    public greeting() {
+      return `name: ${this.name}, message: ${this.message}`
+    }
+  }
+  const mad = new Mad('mad', 'hello world')
+  console.log(mad.greeting())
+}

@@ -201,5 +201,24 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     return el;
   });
   console.log(result);
+  console.clear();
+}
+{
+  class Person {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+  class Mad extends Person {
+    constructor(name, message) {
+      super(name);
+      this.message = message;
+    }
+    greeting() {
+      return `name: ${this.name}, message: ${this.message}`;
+    }
+  }
+  const mad = new Mad("mad", "hello world");
+  console.log(mad.greeting());
 }
 //# sourceMappingURL=index.js.map
