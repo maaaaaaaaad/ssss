@@ -210,22 +210,6 @@
   console.clear()
 }
 {
-  function transform<T, K>(arr: T[], func: (args: T) => K): K[] {
-    return arr.map(func)
-  }
-  const elements = [1, "2", "3", 4, "5"]
-  const result = transform(elements, (el) => {
-    if (typeof el === 'string') {
-      console.log(el)
-      Number(el)
-      console.log(typeof el)
-    }
-    return el
-  })
-  console.log(result)
-  console.clear()
-}
-{
   class Person {
     constructor(protected name: string) { }
   }
@@ -252,4 +236,11 @@
   mad.setMessage = 'welcome to the jungle'
   console.log(mad.greeting)
   console.clear()
+}
+{
+  interface Empty<T> {
+    data: T
+  }
+  let x: Empty<string>
+  let y: Empty<number>
 }
