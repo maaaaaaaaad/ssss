@@ -238,9 +238,5 @@
   console.clear()
 }
 {
-  interface Empty<T> {
-    data: T
-  }
-  let x: Empty<string>
-  let y: Empty<number>
+  function test() { }
 }
