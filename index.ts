@@ -237,3 +237,14 @@
   console.log(mad.greeting)
   console.clear()
 }
+{
+  interface Foo<T> {
+    set: (params: T) => T
+  }
+  const foo: Foo<string | number> = {
+    set(params: string | number) {
+      return params
+    }
+  }
+
+}
