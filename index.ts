@@ -241,10 +241,18 @@
   interface Foo<T> {
     set: (params: T) => T
   }
+
+  interface Bar<T> {
+    set(params: T): T
+  }
   const foo: Foo<string | number> = {
     set(params: string | number) {
       return params
     }
   }
-
+  const bar: Bar<string | number> = {
+    set(params: number) {
+      return params
+    }
+  }
 }
