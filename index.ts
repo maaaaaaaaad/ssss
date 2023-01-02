@@ -237,6 +237,3 @@
   console.log(mad.greeting)
   console.clear()
 }
-{
-  function test() { }
-}
