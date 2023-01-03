@@ -238,29 +238,14 @@
   console.clear()
 }
 {
-  interface Foo<T> {
-    set: (params: T) => T
+  interface Foo {
+    set: (arg: string | number) => void
   }
-
-  interface Bar<T> {
-    set(params: T): T
+  let foo: Foo
+  foo = {
+    set(x: string) {console.log(x)}
   }
-  const foo: Foo<string | number> = {
-    set(params: string | number) {
-      return params
-    }
+  foo = {
+    set(x: string | number) { console.log(x)}
   }
-  const bar: Bar<string | number> = {
-    set(params: number) {
-      return params
-    }
-  }
-}
-{
-  type Params = string | number
-  type Foo<T> = (params: T) => T
-  let foo: Foo<Params>
-  let bar: Foo<string>
-  // foo = bar x
-  // bar = foo o
 }
