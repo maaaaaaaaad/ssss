@@ -249,3 +249,11 @@
     set(x: string | number) { console.log(x)}
   }
 }
+{
+  interface Bar {
+    set(arg: string | number): void
+  }
+  let bar: Bar
+  bar = {set(x: string) {}}
+  bar = {set(x: string | number) {}}
+}
