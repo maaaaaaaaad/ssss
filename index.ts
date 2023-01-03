@@ -256,3 +256,11 @@
     }
   }
 }
+{
+  type Params = string | number
+  type Foo<T> = (params: T) => T
+  let foo: Foo<Params>
+  let bar: Foo<string>
+  // foo = bar x
+  // bar = foo o
+}
