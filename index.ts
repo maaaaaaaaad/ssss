@@ -257,3 +257,11 @@
   bar = {set(x: string) {}}
   bar = {set(x: string | number) {}}
 }
+{
+  interface Test<T> {
+    set: (param: T) => void
+  }
+  const test: Test<string | number> = {
+    set(param: string) {}
+  }
+}

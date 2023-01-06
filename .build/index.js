@@ -187,23 +187,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   console.clear();
 }
 {
-  let transform = function(arr, func) {
-    return arr.map(func);
-  };
-  var transform2 = transform;
-  const elements = [1, "2", "3", 4, "5"];
-  const result = transform(elements, (el) => {
-    if (typeof el === "string") {
-      console.log(el);
-      Number(el);
-      console.log(typeof el);
-    }
-    return el;
-  });
-  console.log(result);
-  console.clear();
-}
-{
   class Person {
     constructor(name) {
       this.name = name;
@@ -230,5 +213,31 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   mad.setMessage = "welcome to the jungle";
   console.log(mad.greeting);
   console.clear();
+}
+{
+  let foo;
+  foo = {
+    set(x) {
+      console.log(x);
+    }
+  };
+  foo = {
+    set(x) {
+      console.log(x);
+    }
+  };
+}
+{
+  let bar;
+  bar = { set(x) {
+  } };
+  bar = { set(x) {
+  } };
+}
+{
+  const test = {
+    set(param) {
+    }
+  };
 }
 //# sourceMappingURL=index.js.map
