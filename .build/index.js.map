@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../index.ts"],
-  "sourcesContent": ["function foo() {\n  if (true) {\n    var x = 10\n  }\n  console.log(x)\n}\n\nfoo()\n\nfunction bar() {\n  if (true) {\n    let y = 10\n  }\n  console.log(y)\n}\n\nbar()"],
-  "mappings": "AAAA,eAAe;AACb,MAAI,MAAM;AACR,QAAI,IAAI;AAAA;AAEV,UAAQ,IAAI;AAAA;AAGd;AAEA,eAAe;AACb,MAAI,MAAM;AACR,QAAI,KAAI;AAAA;AAEV,UAAQ,IAAI;AAAA;AAGd;",
+  "sourcesContent": ["function foo() {\n  if (true) {\n    var x = 10\n  }\n  console.log(x)\n}\n\nfoo()\n\n// function bar() {\n//   if (true) {\n//     let y = 10\n//   }\n//   console.log(y)\n// }\n\n// bar()\n\nfunction zoo() {\n  for (var i = 0; i < 5; i++) {\n    console.log(\"i\", i)\n  }\n  console.log(i)\n}\n\nzoo()"],
+  "mappings": "AAAA,eAAe;AACb,MAAI,MAAM;AACR,QAAI,IAAI;AAAA;AAEV,UAAQ,IAAI;AAAA;AAGd;AAWA,eAAe;AACb,WAAS,IAAI,GAAG,IAAI,GAAG,KAAK;AAC1B,YAAQ,IAAI,KAAK;AAAA;AAEnB,UAAQ,IAAI;AAAA;AAGd;",
   "names": []
 }

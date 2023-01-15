@@ -5,11 +5,11 @@ function foo() {
   console.log(x);
 }
 foo();
-function bar() {
-  if (true) {
-    let y2 = 10;
+function zoo() {
+  for (var i = 0; i < 5; i++) {
+    console.log("i", i);
   }
-  console.log(y);
+  console.log(i);
 }
-bar();
+zoo();
 //# sourceMappingURL=index.js.map

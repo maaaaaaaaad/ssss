@@ -7,11 +7,20 @@ function foo() {
 
 foo()
 
-function bar() {
-  if (true) {
-    let y = 10
+// function bar() {
+//   if (true) {
+//     let y = 10
+//   }
+//   console.log(y)
+// }
+
+// bar()
+
+function zoo() {
+  for (var i = 0; i < 5; i++) {
+    console.log("i", i)
   }
-  console.log(y)
+  console.log(i)
 }
 
-bar()
+zoo()
