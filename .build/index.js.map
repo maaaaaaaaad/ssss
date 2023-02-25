@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../index.ts"],
-  "sourcesContent": ["type MyReturnType<T> = T extends string ? string[] : number[]\n\ntype X = MyReturnType<string> // []string\ntype Y = MyReturnType<number> // []int\n\nconst x: X = [\"a\", \"b\", \"c\"]\nconst y: Y = [1, 2, 3]\n\nconsole.log(\"x:\", x, \"y:\", y)"],
-  "mappings": "AAKA,MAAM,IAAO,CAAC,KAAK,KAAK;AACxB,MAAM,IAAO,CAAC,GAAG,GAAG;AAEpB,QAAQ,IAAI,MAAM,GAAG,MAAM;",
+  "sourcesContent": ["type MyReturnType<T> = T extends string ? string[] : number[]\n\ntype X = MyReturnType<string> // []string\ntype Y = MyReturnType<number> // []int\n\nconst x: X = [\"a\", \"b\", \"c\"]\nconst y: Y = [1, 2, 3]\n\nconsole.log(\"x:\", x, \"y:\", y)\n\ninterface StringDataType<T extends boolean> {\n  readonly data: T extends true ? string : number\n  readonly message: T\n}\n\nconst stringData: StringDataType<true> = {\n  data: \"mad\",\n  message: true\n}\n\nconst stringErrorData: StringDataType<false> = {\n  data: 1,\n  message: false\n}\n\nconsole.log(\"ok:\", stringData, \"fail:\", stringErrorData)"],
+  "mappings": "AAKA,MAAM,IAAO,CAAC,KAAK,KAAK;AACxB,MAAM,IAAO,CAAC,GAAG,GAAG;AAEpB,QAAQ,IAAI,MAAM,GAAG,MAAM;AAO3B,MAAM,aAAmC;AAAA,EACvC,MAAM;AAAA,EACN,SAAS;AAAA;AAGX,MAAM,kBAAyC;AAAA,EAC7C,MAAM;AAAA,EACN,SAAS;AAAA;AAGX,QAAQ,IAAI,OAAO,YAAY,SAAS;",
   "names": []
 }
