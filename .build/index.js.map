@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../index.ts"],
-  "sourcesContent": ["function foo() {\n  if (true) {\n    var x = 10\n  }\n  console.log(x)\n}\n\nfoo()\n\n// function bar() {\n//   if (true) {\n//     let y = 10\n//   }\n//   console.log(y)\n// }\n\n// bar()\n\nfunction zoo() {\n  for (var i = 0; i < 5; i++) {\n    console.log(\"i\", i)\n  }\n  console.log(i)\n}\n\nzoo()"],
-  "mappings": "AAAA,eAAe;AACb,MAAI,MAAM;AACR,QAAI,IAAI;AAAA;AAEV,UAAQ,IAAI;AAAA;AAGd;AAWA,eAAe;AACb,WAAS,IAAI,GAAG,IAAI,GAAG,KAAK;AAC1B,YAAQ,IAAI,KAAK;AAAA;AAEnB,UAAQ,IAAI;AAAA;AAGd;",
+  "sourcesContent": ["type MyReturnType<T> = T extends string ? string[] : number[]\n\ntype X = MyReturnType<string> // []string\ntype Y = MyReturnType<number> // []int\n\nconst x: X = [\"a\", \"b\", \"c\"]\nconst y: Y = [1, 2, 3]\n\nconsole.log(\"x:\", x, \"y:\", y)"],
+  "mappings": "AAKA,MAAM,IAAO,CAAC,KAAK,KAAK;AACxB,MAAM,IAAO,CAAC,GAAG,GAAG;AAEpB,QAAQ,IAAI,MAAM,GAAG,MAAM;",
   "names": []
 }

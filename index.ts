@@ -1,26 +1,9 @@
-function foo() {
-  if (true) {
-    var x = 10
-  }
-  console.log(x)
-}
+type MyReturnType<T> = T extends string ? string[] : number[]
 
-foo()
+type X = MyReturnType<string> // []string
+type Y = MyReturnType<number> // []int
 
-// function bar() {
-//   if (true) {
-//     let y = 10
-//   }
-//   console.log(y)
-// }
+const x: X = ["a", "b", "c"]
+const y: Y = [1, 2, 3]
 
-// bar()
-
-function zoo() {
-  for (var i = 0; i < 5; i++) {
-    console.log("i", i)
-  }
-  console.log(i)
-}
-
-zoo()
+console.log("x:", x, "y:", y)

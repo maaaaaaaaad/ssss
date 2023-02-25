@@ -1,15 +1,4 @@
-function foo() {
-  if (true) {
-    var x = 10;
-  }
-  console.log(x);
-}
-foo();
-function zoo() {
-  for (var i = 0; i < 5; i++) {
-    console.log("i", i);
-  }
-  console.log(i);
-}
-zoo();
+const x = ["a", "b", "c"];
+const y = [1, 2, 3];
+console.log("x:", x, "y:", y);
 //# sourceMappingURL=index.js.map
