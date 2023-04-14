@@ -1,27 +1,36 @@
-class Member {
-  constructor(id) {
-    this.id = id;
-  }
-  get member() {
-    return this.id;
-  }
-  set member(id) {
-    this.id = id;
-  }
-}
 class Room {
   constructor(id) {
     this.id = id;
   }
-  get room() {
-    return this.id;
-  }
-  set room(id) {
+  set RoomId(id) {
     this.id = id;
   }
 }
-const mad = new Member("OH");
-console.log(mad.member);
-mad.member = "mad";
-console.log(mad.member);
+class RoomRepository {
+  rooms = new Map();
+  save(room) {
+    this.rooms.set(room.RoomId, room);
+    console.log(this.rooms.get(room.RoomId));
+  }
+  find(roomId) {
+    return this.rooms.get(roomId);
+  }
+}
+class RoomService {
+  constructor(roomRepository) {
+    this.roomRepository = roomRepository;
+  }
+  create(roomId) {
+    const room = new Room(roomId);
+    this.roomRepository.save(room);
+  }
+  find(roomId) {
+    const room = this.roomRepository.find(roomId);
+    if (!room)
+      throw new Error("404");
+    return room;
+  }
+}
+const roomService = new RoomService(new RoomRepository());
+roomService.create("mad-broadcast!");
 //# sourceMappingURL=index.js.map
