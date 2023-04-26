@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../index.ts"],
-  "sourcesContent": ["class Person {\n  constructor(private name: string) { }\n\n  get personName() {\n    return this.name\n  }\n\n  set personName(name: string) {\n    this.name = name\n  }\n}\n\nclass Mad extends Person {\n  constructor(name: string) {\n    super(name)\n  }\n}\n\nconst mad = new Mad('mad')\nconst getName = mad.personName\nconsole.log(getName)\nmad.personName = 'integral'\nconst changeName = mad.personName\nconsole.log(changeName)"],
-  "mappings": "AAAA,aAAa;AAAA,EACX,YAAoB,MAAc;AAAd;AAAA;AAAA,MAEhB,aAAa;AACf,WAAO,KAAK;AAAA;AAAA,MAGV,WAAW,MAAc;AAC3B,SAAK,OAAO;AAAA;AAAA;AAIhB,kBAAkB,OAAO;AAAA,EACvB,YAAY,MAAc;AACxB,UAAM;AAAA;AAAA;AAIV,MAAM,MAAM,IAAI,IAAI;AACpB,MAAM,UAAU,IAAI;AACpB,QAAQ,IAAI;AACZ,IAAI,aAAa;AACjB,MAAM,aAAa,IAAI;AACvB,QAAQ,IAAI;",
+  "sourcesContent": ["type Person = {\n  name: string;\n  age: string;\n  location?: string;\n};\n\ntype NonOptionalKeys<T> = {\n  [K in keyof T]: T extends Record<K, T[K]> ? K : never;\n}[keyof T];\n\ntype NonOptionalFields<T> = {\n  [K in NonOptionalKeys<T>]: T[K];\n};\n\ntype RequiredPerson = NonOptionalFields<Person>;\n\nconst requiredPerson: RequiredPerson = {\n  name: 'mad',\n  age: '11',\n}\n\nconsole.log(requiredPerson)"],
+  "mappings": "AAgBA,MAAM,iBAAiC;AAAA,EACrC,MAAM;AAAA,EACN,KAAK;AAAA;AAGP,QAAQ,IAAI;",
   "names": []
 }

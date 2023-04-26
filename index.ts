@@ -1,24 +1,22 @@
-class Person {
-  constructor(private name: string) { }
+type Person = {
+  name: string;
+  age: string;
+  location?: string;
+};
 
-  get personName() {
-    return this.name
-  }
+type NonOptionalKeys<T> = {
+  [K in keyof T]: T extends Record<K, T[K]> ? K : never;
+}[keyof T];
 
-  set personName(name: string) {
-    this.name = name
-  }
+type NonOptionalFields<T> = {
+  [K in NonOptionalKeys<T>]: T[K];
+};
+
+type RequiredPerson = NonOptionalFields<Person>;
+
+const requiredPerson: RequiredPerson = {
+  name: 'mad',
+  age: '11',
 }
 
-class Mad extends Person {
-  constructor(name: string) {
-    super(name)
-  }
-}
-
-const mad = new Mad('mad')
-const getName = mad.personName
-console.log(getName)
-mad.personName = 'integral'
-const changeName = mad.personName
-console.log(changeName)
+console.log(requiredPerson)
