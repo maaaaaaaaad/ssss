@@ -59,16 +59,21 @@ type FindIdType = Pick<UserType, 'phone'>;
 type FindIdResponseType = BaseResponseType<Pick<UserType, 'accountId'>>;
 
 class UserService {
+  constructor() {
+    this.setBaseURL()
+  }
   async findId({ phone }: FindIdType): Promise<AxiosResponse<FindIdResponseType>> {
     return api({
       method: METHOD.POST,
       url: 'users/',
       data: { phone },
     });
+
+    // ... other apis related to auth
   }
 
-  setBaseURL(newBaseURL: string) {
-    api.setBaseURL(newBaseURL);
+  private setBaseURL() {
+    api.setBaseURL(`${Config.USER_URL}`);
   }
 }
 
