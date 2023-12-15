@@ -1,16 +1,25 @@
-# This is a sample Python script.
-
-# Press ⌘⏎ to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import asyncio
+from pyppeteer import launch
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+async def main():
+    browser = await launch(headless=False)
+    page = await browser.newPage()
+    await page.goto('https://itemscout.io/keyword')
+    site_modal = await page.querySelector(
+        '#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a')
+
+    if site_modal is not None:
+        await site_modal.click()
+
+    await page.screenshot({'path': './example.png'})
+
+    search_input = await page.querySelector(
+        '#app > div > main > div > div > div > div > div.keyword-main-container > div > div > '
+        'div.keyword-search-header-wrapper > div.keyword_guide_main_page_step1.keyword_guide_main_page_step6 > div > '
+        'div > input')
+    await search_input.click()
+    await browser.close()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+asyncio.get_event_loop().run_until_complete(main())
