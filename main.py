@@ -1,14 +1,18 @@
 import asyncio
 from pyppeteer import launch
+from dotenv import load_dotenv
+import os
 
-URL = 'https://itemscout.io/keyword'
+load_dotenv()
+URL = os.getenv('ITEMSCOUT_URL')
 
 
 async def main():
-    browser = await launch(headless=False)
+    browser = await launch(headless=True)
+    print('Running Program')
     page = await browser.newPage()
     await page.goto(URL)
-
+    print(f'Access {URL}')
     await page.waitForSelector('#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a')
     site_modal = await page.querySelector(
         '#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a')
@@ -28,7 +32,7 @@ async def main():
     await page.waitForNavigation()
     if page.url != URL:
         print(f'change url {URL} to LOGIN url')
-    await page.screenshot({'path': './example.png'})
+    print('Finished Program')
     await browser.close()
 
 
