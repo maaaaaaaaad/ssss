@@ -22,6 +22,7 @@ shopping_pay = '#app > div > main > div > div > div > div > div.detail-container
                'div.product-container > div:nth-child(1) > div > span.type-selector.active'
 list_layout = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
               'div.product-container > div:nth-child(3) > div:nth-child(2)'
+product_ul = '.product-card-list'
 
 
 async def handle_dialog(dialog):
@@ -29,8 +30,9 @@ async def handle_dialog(dialog):
     await dialog.dismiss()
 
 
-async def search_product(page, product_name, index, total_products, retries=3):
+async def search_product(page, product_name, index, total_products, retries=100):
     print(f'Searching {product_name}...')
+    progress = (index / total_products) * 100
     try:
         await page.waitForSelector('.keyword-search-input')
         await page.click('.keyword-search-input')
@@ -48,9 +50,21 @@ async def search_product(page, product_name, index, total_products, retries=3):
         await page.evaluate('''() => {
                     document.querySelector('.keyword-search-input').value = ''
                 }''')
-        progress = (index / total_products) * 100
+        product_list = await page.querySelectorAll(f'{product_ul} > li')
+        for product in product_list:
+            title_element = await product.querySelector('.title > .text')
+            price_element = await product.querySelector('.price')
+            category_element = await product.querySelector('.category')
+
+            title_text = await page.evaluate('(element) => element.textContent',
+                                             title_element) if title_element else 'No title'
+            price_text = await page.evaluate('(element) => element.textContent',
+                                             price_element) if price_element else 'No price'
+            category_text = await page.evaluate('(element) => element.textContent',
+                                                category_element) if category_element else 'No category'
+            print(title_text, price_text, category_text)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
-        await page.waitFor(3000)
+        await page.waitFor(2000)
     except Exception as e:
         if retries > 0:
             print(f"Internet connection is slow: {e}. Retrying ({retries})...")
