@@ -2,9 +2,16 @@ import asyncio
 from pyppeteer import launch
 from dotenv import load_dotenv
 import os
+import pandas as pd
 
 load_dotenv()
 URL = os.getenv('ITEMSCOUT_URL')
+
+file_path = 'files/keyword/sample.xlsx'
+df = pd.read_excel(file_path)
+product_names = df['상품명']
+
+print(product_names)
 
 
 async def main():
