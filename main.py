@@ -30,6 +30,30 @@ async def handle_dialog(dialog):
     await dialog.dismiss()
 
 
+async def login(page, email, password, retries=100):
+    try:
+        await page.waitForSelector(
+            '#app > div > main > div > div > div > div > span > form > span:nth-child(1) > div > div > div > '
+            'div.v-input__slot', visible=True)
+        print(f'Approaching the login url...')
+        await page.type(f'input[placeholder="{LOGIN_EMAIL_SELECTOR}"]', email)
+        await page.type(
+            f'input[placeholder="{LOGIN_PASSWORD_SELECTOR}"]', password)
+        await page.waitFor(1000)
+        await page.click(
+            '#app > div > main > div > div > div > div > '
+            'button.v-btn.v-btn--has-bg.theme--light.v-size--default.primary')
+        await page.waitForNavigation()
+        await page.waitForSelector('#explore > div > form > div > input', visible=True)
+        print(f'Success login for email: {email}')
+    except Exception as e:
+        if retries > 0:
+            print(f"Internet connection is slow: {e}. Retrying ({retries})...")
+            await login(page, email, password, retries - 1)
+        else:
+            print(f"Failed to complete login for {email} after several retries.")
+
+
 async def search_product(page, product_name, index, total_products, retries=100):
     print(f'Searching {product_name}...')
     progress = (index / total_products) * 100
@@ -64,7 +88,7 @@ async def search_product(page, product_name, index, total_products, retries=100)
                                                 category_element) if category_element else 'No category'
             print(title_text, price_text, category_text)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
-        await page.waitFor(2000)
+        await page.waitFor(1000)
     except Exception as e:
         if retries > 0:
             print(f"Internet connection is slow: {e}. Retrying ({retries})...")
@@ -81,19 +105,7 @@ async def main():
     print('Running Program...')
     page = await browser.newPage()
     await page.goto(LOGIN_URL)
-    await page.waitForSelector(
-        '#app > div > main > div > div > div > div > span > form > span:nth-child(1) > div > div > div > '
-        'div.v-input__slot', visible=True)
-    print(f'Approaching the login url...')
-    await page.type(f'input[placeholder="{LOGIN_EMAIL_SELECTOR}"]', user_id)
-    await page.type(
-        f'input[placeholder="{LOGIN_PASSWORD_SELECTOR}"]', passwd)
-    await page.waitFor(1000)
-    await page.click(
-        '#app > div > main > div > div > div > div > button.v-btn.v-btn--has-bg.theme--light.v-size--default.primary')
-    await page.waitForNavigation()
-    await page.waitForSelector('#explore > div > form > div > input')
-    print(f'Success login for email: {user_id}')
+    await login(page, user_id, passwd)
     await page.goto(URL)
     page.on('dialog', handle_dialog)
     await page.waitFor(3000)
