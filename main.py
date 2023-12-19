@@ -53,7 +53,7 @@ async def search_product(page, product_name, index, total_products, retries=3):
         await page.waitFor(3000)
     except Exception as e:
         if retries > 0:
-            print(f"Error occurred: {e}. Retrying ({retries})...")
+            print(f"Internet connection is slow: {e}. Retrying ({retries})...")
             await search_product(page, product_name, index, total_products, retries - 1)
         else:
             print(f"Failed to complete search for {product_name} after several retries.")
