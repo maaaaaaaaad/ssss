@@ -15,8 +15,14 @@ print(product_names)
 
 
 async def main():
+    user_id = input("items count ID: ")
+    password = input("items count PASSWORD: ")
+
+    print("user id:", user_id)
+    print("password:", password)
+
     browser = await launch(headless=True)
-    print('Running Program')
+    print('Running Program...')
     page = await browser.newPage()
     await page.goto(URL)
     print(f'Access {URL}')
