@@ -15,42 +15,48 @@ file_path = './sample.xlsx'
 df = pd.read_excel(file_path)
 product_names = df['상품명']
 
+merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
+        div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
+        div.keyword-tab.keyword_guide_product_list_step0 > div.its-help-container > div:nth-child(1) '
+shopping_pay = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
+               'div.product-container > div:nth-child(1) > div > span.type-selector.active'
+list_layout = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
+              'div.product-container > div:nth-child(3) > div:nth-child(2)'
+
 
 async def handle_dialog(dialog):
     print(f"dialog message: {dialog.message}")
     await dialog.dismiss()
 
 
-async def search_product(page, product_name, index, total_products):
-    merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
-        div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
-        div.keyword-tab.keyword_guide_product_list_step0 > div.its-help-container > div:nth-child(1) '
+async def search_product(page, product_name, index, total_products, retries=3):
     print(f'Searching {product_name}...')
-    await page.waitForSelector('.keyword-search-input')
-    await page.click('.keyword-search-input')
-    await page.keyboard.down('Control')
-    await page.keyboard.press('A')
-    await page.keyboard.up('Control')
-    await page.keyboard.press('Backspace')
-    await page.type('.keyword-search-input', product_name)
-    await page.keyboard.press('Enter')
-    await page.waitForSelector(merchandises)
-    await page.click(merchandises)
-    await page.waitForSelector(
-        '#app > div > main > div > div > div > div > div.detail-container > div.content-container > '
-        'div.product-container > div:nth-child(1) > div > span.type-selector.active', visible=True)
-    await page.click(
-        '#app > div > main > div > div > div > div > div.detail-container > div.content-container > '
-        'div.product-container > div:nth-child(1) > div > span.type-selector.active')
-    await page.waitForSelector(
-        '#app > div > main > div > div > div > div > div.detail-container > div.content-container > '
-        'div.product-container > div:nth-child(3) > div:nth-child(2)')
-    await page.evaluate('''() => {
-            document.querySelector('.keyword-search-input').value = ''
-        }''')
-    progress = (index / total_products) * 100
-    print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
-    await page.waitFor(3000)
+    try:
+        await page.waitForSelector('.keyword-search-input')
+        await page.click('.keyword-search-input')
+        await page.keyboard.down('Control')
+        await page.keyboard.press('A')
+        await page.keyboard.up('Control')
+        await page.keyboard.press('Backspace')
+        await page.type('.keyword-search-input', product_name)
+        await page.keyboard.press('Enter')
+        await page.waitForSelector(merchandises)
+        await page.click(merchandises)
+        await page.waitForSelector(shopping_pay, visible=True)
+        await page.click(shopping_pay)
+        await page.waitForSelector(list_layout)
+        await page.evaluate('''() => {
+                    document.querySelector('.keyword-search-input').value = ''
+                }''')
+        progress = (index / total_products) * 100
+        print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
+        await page.waitFor(3000)
+    except Exception as e:
+        if retries > 0:
+            print(f"Error occurred: {e}. Retrying ({retries})...")
+            await search_product(page, product_name, index, total_products, retries - 1)
+        else:
+            print(f"Failed to complete search for {product_name} after several retries.")
 
 
 async def main():
