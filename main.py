@@ -86,7 +86,6 @@ async def search_product(page, product_name, index, total_products, retries=100)
                                              price_element) if price_element else 'No price'
             category_text = await page.evaluate('(element) => element.textContent',
                                                 category_element) if category_element else 'No category'
-            print(title_text, price_text, category_text)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         await page.waitFor(1000)
     except Exception as e:
