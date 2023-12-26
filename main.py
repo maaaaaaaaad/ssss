@@ -24,6 +24,9 @@ list_layout = '#app > div > main > div > div > div > div > div.detail-container 
               'div.product-container > div:nth-child(3) > div:nth-child(2)'
 product_ul = '.product-card-list'
 
+product_data = []
+processed_titles = set()
+
 
 async def handle_dialog(dialog):
     print(f"dialog message: {dialog.message}")
@@ -80,13 +83,22 @@ async def search_product(page, product_name, index, total_products, retries=100)
             price_element = await product.querySelector('.price')
             category_element = await product.querySelector('.category')
 
-            title_text = await page.evaluate('(element) => element.textContent',
-                                             title_element) if title_element else 'No title'
-            price_text = await page.evaluate('(element) => element.textContent',
-                                             price_element) if price_element else 'No price'
-            category_text = await page.evaluate('(element) => element.textContent',
-                                                category_element) if category_element else 'No category'
+            if title_element:
+                raw_title_text = await page.evaluate('(element) => element.textContent', title_element)
+                title_text = raw_title_text.replace(' ', ',')
+                if title_text not in processed_titles:
+                    processed_titles.add(title_text)
+                    price_text = await page.evaluate('(element) => element.textContent',
+                                                     price_element) if price_element else 'No price'
+                    category_text = await page.evaluate('(element) => element.textContent',
+                                                        category_element) if category_element else 'No category'
+                    product_data.append({
+                        'Title': title_text,
+                        'Price': price_text,
+                        'Category': category_text
+                    })
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
+        print(f'Current product_data: {product_data}')
         await page.waitFor(1000)
     except Exception as e:
         if retries > 0:
@@ -120,6 +132,9 @@ async def main():
     total_products = len(product_names)
     for index, product_name in enumerate(product_names, start=1):
         await search_product(page, product_name, index, total_products)
+
+    data_frame = pd.DataFrame(product_data)
+    data_frame.to_excel('./output.xlsx', index=False)
 
     await browser.close()
 
