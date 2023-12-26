@@ -18,11 +18,19 @@ product_names = df['상품명']
 merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
         div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
         div.keyword-tab.keyword_guide_product_list_step0 > div.its-help-container > div:nth-child(1) '
+related_search_terms = '#app > div > main > div > div > div > div > div.detail-container > ' \
+                       'div.keyword-detail-header-wrapper > div.keyword-tab-container > ' \
+                       'div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > ' \
+                       'div.keyword-tab.keyword_guide_related_keyword_step0.active'
 shopping_pay = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
                'div.product-container > div:nth-child(1) > div > span.type-selector.active'
 list_layout = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
               'div.product-container > div:nth-child(3) > div:nth-child(2)'
 product_ul = '.product-card-list'
+dropdown_selector = '#app > div.v-application--wrap > main > div > div > div > div > div.detail-container > ' \
+                    'div.content-container > div.keyword-tab-wrapper > div:nth-child(1) > div.table-filter-wrapper > ' \
+                    'div.filter-options.mb-4 > div > div > div:nth-child(1) > div.row > div > ' \
+                    'div.its-dropdown.category-option-dropdown'
 
 product_data = []
 processed_titles = set()
@@ -97,6 +105,15 @@ async def search_product(page, product_name, index, total_products, retries=100)
                         'Price': price_text,
                         'Category': category_text
                     })
+        # await page.click(related_search_terms)
+        # await page.waitForSelector(
+        #     '#app > div > main > div > div > div > div > div.detail-container > div.content-container > '
+        #     'div.keyword-tab-wrapper > div:nth-child(1) > div.table-filter-wrapper > div.filter-options.mb-4 > div')
+        # await page.click('.v-radio theme--light v-item--active')
+        # dropdown = await page.querySelector(dropdown_selector)
+        # first_option_value = await page.evaluate(
+        #     '''(dropdown) => dropdown.options[0].value''', dropdown)
+        # await page.select(dropdown_selector, first_option_value)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         await page.waitFor(1000)
     except Exception as e:
