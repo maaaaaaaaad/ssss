@@ -98,7 +98,6 @@ async def search_product(page, product_name, index, total_products, retries=100)
                         'Category': category_text
                     })
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
-        print(f'Current product_data: {product_data}')
         await page.waitFor(1000)
     except Exception as e:
         if retries > 0:
