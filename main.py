@@ -44,7 +44,7 @@ async def login(page, email, password, retries=100):
     try:
         await page.waitForSelector(
             '#app > div > main > div > div > div > div > span > form > span:nth-child(1) > div > div > div > '
-            'div.v-input__slot', visible=True)
+            'div.v-input__slot')
         print(f'Approaching the login url...')
         await page.type(f'input[placeholder="{LOGIN_EMAIL_SELECTOR}"]', email)
         await page.type(
@@ -54,7 +54,7 @@ async def login(page, email, password, retries=100):
             '#app > div > main > div > div > div > div > '
             'button.v-btn.v-btn--has-bg.theme--light.v-size--default.primary')
         await page.waitForNavigation()
-        await page.waitForSelector('#explore > div > form > div > input', visible=True)
+        await page.waitForSelector('#explore > div > form > div > input')
         print(f'Success login for email: {email}')
     except Exception as e:
         if retries > 0:
