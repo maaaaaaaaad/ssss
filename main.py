@@ -13,8 +13,11 @@ LOGIN_PASSWORD_SELECTOR = os.getenv('LOGIN_PASSWORD_SELECTOR')
 
 file_path = './sample.xlsx'
 df = pd.read_excel(file_path)
+original_product_names_count = len(df['상품명'])
 df = df.drop_duplicates(subset='상품명')
+unique_product_names_count = len(df)
 product_names = df['상품명'].tolist()
+duplicate_words_count = original_product_names_count - unique_product_names_count
 
 merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
         div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
@@ -142,6 +145,9 @@ async def main():
 
     browser = await launch(headless=True)
     print('Running Program...')
+    print(f"총 상품명 수: {original_product_names_count}")
+    print(f"중복 단어 수: {duplicate_words_count}")
+    print(f"중복 제거 후 상품명 수: {unique_product_names_count}")
     page = await browser.newPage()
     await page.goto(LOGIN_URL)
     await login(page, user_id, passwd)
