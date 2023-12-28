@@ -13,7 +13,8 @@ LOGIN_PASSWORD_SELECTOR = os.getenv('LOGIN_PASSWORD_SELECTOR')
 
 file_path = './sample.xlsx'
 df = pd.read_excel(file_path)
-product_names = df['상품명']
+df = df.drop_duplicates(subset='상품명')
+product_names = df['상품명'].tolist()
 
 merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
         div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
