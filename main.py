@@ -33,7 +33,11 @@ speedy_modal = '#app > div > main > div > div > div > div > div.detail-container
 radio = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
         'div.keyword-tab-wrapper > div:nth-child(1) > div.table-filter-wrapper > div.filter-options.mb-4 > div > div ' \
         '> div:nth-child(1) > div.options-toggle-wrapper > div > div > div > div > div:nth-child(2) > label'
-
+dropdown = '#app > div.v-application--wrap > main > div > div > div > div > div.detail-container > ' \
+           'div.content-container > div.keyword-tab-wrapper > div:nth-child(1) > div.table-filter-wrapper > ' \
+           'div.filter-options.mb-4 > div > div > div:nth-child(1) > div.row > div > ' \
+           'div.its-dropdown.category-option-dropdown'
+dropdown_list = '#app > div.v-menu__content.theme--light.menuable__content__active.dropdown-menu > div > div'
 product_data = []
 processed_titles = set()
 
@@ -110,9 +114,16 @@ async def search_product(page, product_name, index, total_products, retries=100)
         await page.waitForSelector(related_search_terms)
         await page.click(related_search_terms)
         await page.waitForSelector(radio)
-        radio_selector = await page.querySelector(radio)
-        check_radio = await page.evaluate('(element) => element.textContent', radio_selector)
-        print(f'Check radio button: {check_radio}')
+        await page.querySelector(radio)
+        await page.click(radio)
+        await page.querySelector(dropdown)
+        await page.click(dropdown)
+        await page.waitForSelector(dropdown_list)
+        children = await page.querySelectorAll(f'{dropdown_list} > div')
+        if children:
+            first_child = children[0]
+            text = await page.evaluate('(element) => element.textContent', first_child)
+            print(text)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
     except Exception as e:
@@ -125,8 +136,8 @@ async def search_product(page, product_name, index, total_products, retries=100)
 
 
 async def main():
-    user_id = input("item scout EMAIL ID ex) mad@gmail.com: ")
-    passwd = getpass.getpass("item scout PASSWORD: ")
+    user_id = input("item scout email: ")
+    passwd = getpass.getpass("item scout password: ")
 
     browser = await launch(headless=True)
     print('Running Program...')
