@@ -30,6 +30,9 @@ related_search_terms = '#app > div > main > div > div > div > div > div.detail-c
 speedy_modal = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > div > ' \
                'div:nth-child(5) > div.multi-chart-view-container.gutter.keyword_guide_market_trend_step13 > ' \
                'div.extension-modal.v--modal-overlay > div > div.v--modal-box.v--modal'
+radio = '#app > div > main > div > div > div > div > div.detail-container > div.content-container > ' \
+        'div.keyword-tab-wrapper > div:nth-child(1) > div.table-filter-wrapper > div.filter-options.mb-4 > div > div ' \
+        '> div:nth-child(1) > div.options-toggle-wrapper > div > div > div > div > div:nth-child(2) > label'
 
 product_data = []
 processed_titles = set()
@@ -106,11 +109,16 @@ async def search_product(page, product_name, index, total_products, retries=100)
                     })
         await page.waitForSelector(related_search_terms)
         await page.click(related_search_terms)
+        await page.waitForSelector(radio)
+        radio_selector = await page.querySelector(radio)
+        check_radio = await page.evaluate('(element) => element.textContent', radio_selector)
+        print(f'Check radio button: {check_radio}')
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
-        await page.waitFor(1000)
+        page.waitFor(1000)
     except Exception as e:
         if retries > 0:
             print(f"Internet connection is slow: {e}. Retrying ({retries})...")
+            await page.reload()
             await search_product(page, product_name, index, total_products, retries - 1)
         else:
             print(f"Failed to complete search for {product_name} after several retries.")
