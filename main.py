@@ -19,6 +19,8 @@ unique_product_names_count = len(df)
 product_names = df['상품명'].tolist()
 duplicate_words_count = original_product_names_count - unique_product_names_count
 
+is_sorted = False
+
 merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
         div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
         div.keyword-tab.keyword_guide_product_list_step0 > div.its-help-container > div:nth-child(1) '
@@ -83,6 +85,7 @@ async def login(page, email, password, retries=100):
 
 async def search_product(page, product_name, index, total_products, retries=100):
     print(f'Searching {product_name}...')
+    global is_sorted
     progress = (index / total_products) * 100
     try:
         await page.waitForSelector('.keyword-search-input')
@@ -133,9 +136,9 @@ async def search_product(page, product_name, index, total_products, retries=100)
         if children:
             first_child = children[0]
             await first_child.click()
-        for _ in range(3):
+        if not is_sorted:
             await page.click(sort_button)
-            await asyncio.sleep(0.5)
+            is_sorted = True
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
     except Exception as e:
@@ -151,7 +154,7 @@ async def main():
     user_id = input("item scout email: ")
     passwd = getpass.getpass("item scout password: ")
 
-    browser = await launch(headless=False)
+    browser = await launch(headless=True)
     print('Running Program...')
     print(f"총 상품명 수: {original_product_names_count}")
     print(f"중복 단어 수: {duplicate_words_count}")
