@@ -21,6 +21,7 @@ duplicate_words_count = original_product_names_count - unique_product_names_coun
 
 is_sorted = False
 
+site_modal_box = '#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a'
 merchandises = '#app > div > main > div > div > div > div > div.detail-container > div.keyword-detail-header-wrapper > \
         div.keyword-tab-container > div.keyword-tab-wrapper.keyword_guide_market_trend_step0 > \
         div.keyword-tab.keyword_guide_product_list_step0 > div.its-help-container > div:nth-child(1) '
@@ -164,11 +165,8 @@ async def main():
     await login(page, user_id, passwd)
     await page.goto(URL)
     page.on('dialog', handle_dialog)
-    await page.waitFor(3000)
-    await page.waitForSelector('#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a',
-                               visible=True)
-    site_modal = await page.querySelector(
-        '#app > div > div:nth-child(5) > div > div.v--modal-box.v--modal > div.actions > a')
+    await page.waitForSelector(site_modal_box, visible=True)
+    site_modal = await page.querySelector(site_modal_box)
     if site_modal is not None:
         await site_modal.click()
     await page.waitFor(1000)
