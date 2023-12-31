@@ -85,7 +85,6 @@ async def login(page, email, password, retries=100):
 
 
 async def search_product(page, product_name, index, total_products, retries=100):
-    print(f'Approaching the search page...')
     print(f'Searching {product_name}...')
     global is_sorted
     progress = (index / total_products) * 100
@@ -172,6 +171,7 @@ async def main():
         await site_modal.click()
     await page.waitFor(1000)
     total_products = len(product_names)
+    print(f'Approaching the search page...')
     for index, product_name in enumerate(product_names, start=1):
         await search_product(page, product_name, index, total_products)
 
