@@ -51,6 +51,7 @@ sort_button = '#app > div.v-application--wrap > main > div > div > div > div > d
               'th.header-th.text-center.is-draggable.its-column-3.keyword_guide_related_keyword_step3 > div > ' \
               'div.table-header > div'
 dropdown_list = '#app > div.v-menu__content.theme--light.menuable__content__active.dropdown-menu > div > div'
+search_count_input = '#inputstartundefined'
 product_data = []
 processed_titles = set()
 
@@ -139,6 +140,7 @@ async def search_product(page, product_name, search_count, index, total_products
             await first_child.click()
         if not is_sorted:
             await page.click(sort_button)
+            await page.type(search_count_input, search_count)
             is_sorted = True
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
@@ -154,9 +156,9 @@ async def search_product(page, product_name, search_count, index, total_products
 async def main():
     user_id = input("item scout email: ")
     passwd = getpass.getpass("item scout password: ")
-    search_count = int(input("search count: "))
+    search_count = input("search count: ")
 
-    if search_count <= 0 or search_count > 100:
+    if int(search_count) <= 0 or int(search_count) > 100:
         raise Exception('the number range incorrect')
 
     browser = await launch(headless=True)
