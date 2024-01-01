@@ -84,7 +84,7 @@ async def login(page, email, password, retries=100):
             print(f"Failed to complete login for {email} after several retries.")
 
 
-async def search_product(page, product_name, index, total_products, retries=100):
+async def search_product(page, product_name, search_count, index, total_products, retries=100):
     print(f'Searching {product_name}...')
     global is_sorted
     progress = (index / total_products) * 100
@@ -154,6 +154,10 @@ async def search_product(page, product_name, index, total_products, retries=100)
 async def main():
     user_id = input("item scout email: ")
     passwd = getpass.getpass("item scout password: ")
+    search_count = int(input("search count: "))
+
+    if search_count <= 0 or search_count > 100:
+        raise Exception('the number range incorrect')
 
     browser = await launch(headless=True)
     print('Running Program...')
@@ -172,8 +176,9 @@ async def main():
     await page.waitFor(1000)
     total_products = len(product_names)
     print(f'Approaching the search page...')
+    print(f'Setup the number range is {search_count}')
     for index, product_name in enumerate(product_names, start=1):
-        await search_product(page, product_name, index, total_products)
+        await search_product(page, product_name, search_count, index, total_products)
 
     data_frame = pd.DataFrame(product_data)
     data_frame.to_excel('./output.xlsx', index=False)
