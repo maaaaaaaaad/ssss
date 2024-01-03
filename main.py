@@ -110,6 +110,7 @@ async def search_product(page, product_name, search_count, index, total_products
         await page.evaluate('''() => {
                     document.querySelector('.keyword-search-input').value = ''
                 }''')
+
         product_list = await page.querySelectorAll(f'{product_ul} > li')
         for product in product_list:
             title_element = await product.querySelector('.title > .text')
@@ -130,6 +131,7 @@ async def search_product(page, product_name, search_count, index, total_products
                         'Price': price_text,
                         'Category': category_text
                     })
+
         await page.waitForSelector(related_search_terms)
         await page.click(related_search_terms)
         await page.waitForSelector(radio)
@@ -138,6 +140,7 @@ async def search_product(page, product_name, search_count, index, total_products
         await page.querySelector(dropdown)
         await page.click(dropdown)
         await page.waitForSelector(dropdown_list)
+
         children = await page.querySelectorAll(f'{dropdown_list} > div')
         if children:
             first_child = children[0]
@@ -146,11 +149,14 @@ async def search_product(page, product_name, search_count, index, total_products
             await page.click(sort_button)
             await page.type(search_count_input, search_count)
             is_sorted = True
+
         await page.waitForSelector(keyword_table)
+
         keywords = await page.querySelectorAll('.keyword-label')
-        for keyword in keywords:
+        for keyword in keywords[:20]:
             keyword_text = await page.evaluate('(element) => element.textContent', keyword)
             print(keyword_text)
+
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
     except Exception as e:
