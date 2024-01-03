@@ -52,6 +52,10 @@ sort_button = '#app > div.v-application--wrap > main > div > div > div > div > d
               'div.table-header > div'
 dropdown_list = '#app > div.v-menu__content.theme--light.menuable__content__active.dropdown-menu > div > div'
 search_count_input = '#inputstartundefined'
+keyword_table = '#app > div.v-application--wrap > main > div > div > div > div > div.detail-container > ' \
+                'div.content-container > div.keyword-tab-wrapper > div:nth-child(2) > ' \
+                'div.its-data-table.keyword_guide_related_keyword_table > div.its-table-body-wrapper > div > ' \
+                'div.simplebar-wrapper > div.simplebar-mask > div > div > div > table'
 product_data = []
 processed_titles = set()
 
@@ -142,6 +146,7 @@ async def search_product(page, product_name, search_count, index, total_products
             await page.click(sort_button)
             await page.type(search_count_input, search_count)
             is_sorted = True
+        await page.waitForSelector(keyword_table)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
     except Exception as e:
