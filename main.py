@@ -147,6 +147,14 @@ async def search_product(page, product_name, search_count, index, total_products
             await page.type(search_count_input, search_count)
             is_sorted = True
         await page.waitForSelector(keyword_table)
+        tables = await page.querySelectorAll(f'{keyword_table} > tbody')
+        for tbody in tables:
+            rows = await tbody.querySelectorAll('tr')
+            for row in rows:
+                cells = await row.querySelectorAll('td')
+                for cell in cells:
+                    content = await page.evaluate('(element) => element.innerHTML', cell)
+                    print(content)
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
     except Exception as e:
