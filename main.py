@@ -152,12 +152,22 @@ async def search_product(page, product_name, search_count, index, total_products
 
         await page.waitForSelector(keyword_table)
 
-        keywords = await page.querySelectorAll('.keyword-label')
-        expose_counts = await page.querySelectorAll('.table-content > div')
+        tables = await page.querySelectorAll(f'{keyword_table} > tbody')
+        for tbody in tables:
+            rows = await tbody.querySelectorAll('tr')
+            for row in rows:
+                cells = await row.querySelectorAll('td')
+                for index, cell in enumerate(cells):
+                    keyword_label = await cell.querySelector(f'.table-td text-left its-column-{2 * index + 1}')
+                    keyword_text = await page.evaluate('(element) => element.innerHTML', keyword_label)
+                    print(keyword_text)
 
-        for keyword in keywords[:20]:
-            keyword_text = await page.evaluate('(element) => element.textContent', keyword)
-            print(f'keyword text: {keyword_text}')
+        # keywords = await page.querySelectorAll('.keyword-label')
+        # expose_counts = await page.querySelectorAll('.table-content > div')
+        #
+        # for keyword in keywords[:20]:
+        #     keyword_text = await page.evaluate('(element) => element.textContent', keyword)
+        #     print(f'keyword text: {keyword_text}')
 
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
