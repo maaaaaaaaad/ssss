@@ -157,7 +157,7 @@ async def search_product(page, product_name, search_count, index, total_products
 
         for keyword in keywords[:20]:
             keyword_text = await page.evaluate('(element) => element.textContent', keyword)
-            print(f'keyword text: {keyword_text}')
+            print(keyword_text)
 
         print(f'Completed keyword search: {product_name} ({index}/{total_products}, {progress:.2f}%)')
         page.waitFor(1000)
