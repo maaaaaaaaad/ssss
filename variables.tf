@@ -62,8 +62,3 @@ variable "db_instance_class" {
   type    = string
   default = "db.t3.micro"
 }
-
-variable "domain_name" {
-  type    = string
-  default = "jellomark.com"
-}
