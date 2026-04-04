@@ -62,3 +62,8 @@ variable "db_instance_class" {
   type    = string
   default = "db.t3.micro"
 }
+
+variable "ses_sender_email" {
+  type    = string
+  default = "zellomark123@gmail.com"
+}
