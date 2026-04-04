@@ -22,14 +22,6 @@ output "ecr_repository_url" {
   value = aws_ecr_repository.backend.repository_url
 }
 
-output "route53_nameservers" {
-  value = aws_route53_zone.main.name_servers
-}
-
-output "api_domain" {
-  value = aws_route53_record.api.fqdn
-}
-
 output "ssh_command" {
   value = "ssh -i ~/.ssh/jellomark-ec2 ec2-user@${aws_eip.backend.public_ip}"
 }
